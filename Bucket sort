@@ -1,0 +1,43 @@
+# Generar lista de 1000 números aleatorios entre 0 y 10000
+lista = [random.randint(0, 10000) for _ in range(1000)]
+
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+    return arr
+
+def bucket_sort(arr, num_buckets=10):
+    if len(arr) == 0:
+        return arr
+
+    max_val = max(arr)
+    min_val = min(arr)
+
+    # Crear buckets vacíos
+    buckets = [[] for _ in range(num_buckets)]
+
+    # Distribuir elementos en los buckets
+    for num in arr:
+        index = (num - min_val) * (num_buckets - 1) // (max_val - min_val)
+        buckets[index].append(num)
+
+    # Ordenar cada bucket e ir concatenando
+    resultado = []
+    for bucket in buckets:
+        insertion_sort(bucket)
+        resultado.extend(bucket)
+
+    return resultado
+
+print("Lista original:")
+print(lista)
+
+lista_ordenada = bucket_sort(lista)
+
+print("\nLista ordenada con Bucket Sort:")
+print(lista_ordenada)
