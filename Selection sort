@@ -1,0 +1,23 @@
+# Generar lista de 1000 números aleatorios
+lista = [random.randint(0, 10000) for _ in range(1000)]
+
+def selection_sort(arr):
+    a = arr.copy()
+    n = len(a)
+    for i in range(n):
+        min_idx = i
+        for j in range(i + 1, n):
+            if a[j] < a[min_idx]:
+                min_idx = j
+        a[i], a[min_idx] = a[min_idx], a[i]
+    return a
+
+print("Lista original:")
+print(lista)
+
+lista_ordenada = selection_sort(lista)
+
+print("\nLista ordenada con Selection Sort:")
+print(lista_ordenada)
+
+
