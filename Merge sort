@@ -1,0 +1,37 @@
+# Generar lista de 1000 números aleatorios
+lista = [random.randint(0, 10000) for _ in range(1000)]
+
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    mid = len(arr) // 2
+    izquierda = merge_sort(arr[:mid])
+    derecha = merge_sort(arr[mid:])
+    
+    return merge(izquierda, derecha)
+
+def merge(left, right):
+    resultado = []
+    i = j = 0
+    
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            resultado.append(left[i])
+            i += 1
+        else:
+            resultado.append(right[j])
+            j += 1
+    
+    resultado.extend(left[i:])
+    resultado.extend(right[j:])
+    
+    return resultado
+
+print("Lista original:")
+print(lista)
+
+lista_ordenada = merge_sort(lista)
+
+print("\nLista ordenada con Merge Sort:")
+print(lista_ordenada)
