@@ -1,0 +1,21 @@
+# Generar lista de 1000 números aleatorios
+lista = [random.randint(0, 10000) for _ in range(1000)]
+
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    pivot = arr[len(arr) // 2]
+    menores = [x for x in arr if x < pivot]
+    iguales = [x for x in arr if x == pivot]
+    mayores = [x for x in arr if x > pivot]
+    
+    return quick_sort(menores) + iguales + quick_sort(mayores)
+
+print("Lista original:")
+print(lista)
+
+lista_ordenada = quick_sort(lista)
+
+print("\nLista ordenada con Quick Sort:")
+print(lista_ordenada)
