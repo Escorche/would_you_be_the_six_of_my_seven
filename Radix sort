@@ -1,0 +1,45 @@
+# Generar lista de 1000 números aleatorios entre 0 y 10000
+lista = [random.randint(0, 10000) for _ in range(1000)]
+
+def counting_sort_por_digito(arr, exp):
+    n = len(arr)
+    salida = [0] * n
+    conteo = [0] * 10  # dígitos 0-9
+
+    # Contar ocurrencias del dígito actual
+    for num in arr:
+        indice = (num // exp) % 10
+        conteo[indice] += 1
+
+    # Acumular conteos
+    for i in range(1, 10):
+        conteo[i] += conteo[i - 1]
+
+    # Construir la salida (estable)
+    for i in range(n - 1, -1, -1):
+        indice = (arr[i] // exp) % 10
+        salida[conteo[indice] - 1] = arr[i]
+        conteo[indice] -= 1
+
+    return salida
+
+def radix_sort(arr):
+    max_val = max(arr)
+    exp = 1
+
+    resultado = arr.copy()
+
+    # Procesar dígito por dígito
+    while max_val // exp > 0:
+        resultado = counting_sort_por_digito(resultado, exp)
+        exp *= 10
+
+    return resultado
+
+print("Lista original:")
+print(lista)
+
+lista_ordenada = radix_sort(lista)
+
+print("\nLista ordenada con Radix Sort:")
+print(lista_ordenada)
