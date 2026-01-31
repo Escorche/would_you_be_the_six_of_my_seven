@@ -1,0 +1,43 @@
+# Generar lista de 1000 números aleatorios
+lista = [random.randint(0, 10000) for _ in range(1000)]
+
+def heapify(arr, n, i):
+    largest = i
+    left = 2 * i + 1
+    right = 2 * i + 2
+
+    # Verificar hijo izquierdo
+    if left < n and arr[left] > arr[largest]:
+        largest = left
+
+    # Verificar hijo derecho
+    if right < n and arr[right] > arr[largest]:
+        largest = right
+
+    # Si el mayor no es la raíz, intercambiar
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
+
+def heap_sort(arr):
+    a = arr.copy()
+    n = len(a)
+
+    # Construir el heap (max-heap)
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(a, n, i)
+
+    # Extraer elementos del heap uno por uno
+    for i in range(n - 1, 0, -1):
+        a[i], a[0] = a[0], a[i]  # Mover raíz al final
+        heapify(a, i, 0)
+
+    return a
+
+print("Lista original:")
+print(lista)
+
+lista_ordenada = heap_sort(lista)
+
+print("\nLista ordenada con Heap Sort:")
+print(lista_ordenada)
