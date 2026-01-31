@@ -1,0 +1,31 @@
+# Generar lista de 1000 números aleatorios entre 0 y 10000
+lista = [random.randint(0, 10000) for _ in range(1000)]
+
+def counting_sort(arr):
+    if not arr:
+        return arr
+
+    max_val = max(arr)
+    min_val = min(arr)
+
+    rango = max_val - min_val + 1
+    conteo = [0] * rango
+
+    # Contar ocurrencias
+    for num in arr:
+        conteo[num - min_val] += 1
+
+    # Reconstruir la lista ordenada
+    resultado = []
+    for i in range(rango):
+        resultado.extend([i + min_val] * conteo[i])
+
+    return resultado
+
+print("Lista original:")
+print(lista)
+
+lista_ordenada = counting_sort(lista)
+
+print("\nLista ordenada con Counting Sort:")
+print(lista_ordenada)
